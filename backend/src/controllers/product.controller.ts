@@ -64,7 +64,8 @@ export const updateProduct = async (req: Request, res: Response) => {
     if (!title || !description || !imageUrl) return res.status(400).json({ message: "Missing required fields" });
 
     const product = await queries.getProductById(id);
-    if (product?.userId !== userId) return res.status(403).json({ message: "You can only update your own products" });
+    if (!product) return res.status(404).json({ message: "Product not found" });
+    if (product.userId !== userId) return res.status(403).json({ message: "You can only update your own products" });
 
     const updatedProduct = await queries.updateProduct(id, { title, description, imageUrl });
     return res.status(200).json(updatedProduct);
@@ -81,7 +82,8 @@ export const deleteProduct = async (req: Request, res: Response) => {
 
     const { id } = req.params;
     const product = await queries.getProductById(id);
-    if (product?.userId !== userId) return res.status(403).json({ message: "You can only delete your own products" });
+    if (!product) return res.status(404).json({ message: "Product not found" });
+    if (product.userId !== userId) return res.status(403).json({ message: "You can only delete your own products" });
 
     await queries.deleteProduct(id);
     return res.status(200).json({ message: "Product deleted successfully" });

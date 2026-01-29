@@ -26,7 +26,8 @@ export const deleteComment = async (req: Request, res: Response) => {
 
     const { commentId } = req.params;
     const comment = await queries.getCommentById(commentId);
-    if (comment?.userId !== userId) return res.status(403).json({ message: "You can only delete your own comments" });
+    if (!comment) return res.status(404).json({ message: "Comment not found" });
+    if (comment.userId !== userId) return res.status(403).json({ message: "You can only delete your own comments" });
 
     await queries.deleteComment(commentId);
     return res.status(200).json({ message: "Comment deleted successfully" });
