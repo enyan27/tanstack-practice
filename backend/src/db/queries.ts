@@ -79,9 +79,9 @@ export const deleteComment = async (id: string) => {
   return comment;
 };
 
-export const getCommentByUserId = async (userId: string) => {
+export const getCommentById = async (id: string) => {
   return db.query.comments.findFirst({
-    where: eq(comments.userId, userId),
+    where: eq(comments.id, id),
     with: { user: true }
   });
 };
