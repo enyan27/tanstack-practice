@@ -13,9 +13,7 @@ export const getUserById = async (id: string) => {
 };
 
 export const updateUser = async (id: string, data: Partial<NewUser>) => {
-  const [user] = await db.update(users).set(data).where(eq(users.id, id)).returning();
-  if (!user) throw new Error("User not found");
-  return user;
+  return (await db.update(users).set(data).where(eq(users.id, id)).returning())[0];
 };
 
 // handle conflict => create or update
@@ -57,15 +55,11 @@ export const getProductByUserId = async (userId: string) => {
 };
 
 export const updateProduct = async (id: string, data: Partial<NewProduct>) => {
-  const [product] = await db.update(products).set(data).where(eq(products.id, id)).returning();
-  if (!product) throw new Error("Product not found");
-  return product;
+  return (await db.update(products).set(data).where(eq(products.id, id)).returning())[0];
 };
 
 export const deleteProduct = async (id: string) => {
-  const [product] = await db.delete(products).where(eq(products.id, id)).returning();
-  if (!product) throw new Error("Product not found");
-  return product;
+  return (await db.delete(products).where(eq(products.id, id)).returning())[0];
 };
 
 // ---- COMMENTS ----
@@ -74,14 +68,12 @@ export const createComment = async (data: NewComment) => {
 };
 
 export const deleteComment = async (id: string) => {
-  const [comment] = await db.delete(comments).where(eq(comments.id, id)).returning();
-  if (!comment) throw new Error("Comment not found");
-  return comment;
+  return (await db.delete(comments).where(eq(comments.id, id)).returning())[0];
 };
 
-export const getCommentByUserId = async (userId: string) => {
+export const getCommentById = async (id: string) => {
   return db.query.comments.findFirst({
-    where: eq(comments.userId, userId),
+    where: eq(comments.id, id),
     with: { user: true }
   });
 };
