@@ -1,8 +1,8 @@
 import { db } from "./index";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { users, products, comments, type NewUser, type NewProduct, type NewComment } from "./schema";
 
-// !!drizzle always returns an array when using .returning()
+//  !!drizzle returns an array from .returning()
 // ---- USERS ----
 export const createUser = async (data: NewUser) => {
   return (await db.insert(users).values(data).returning())[0];
@@ -54,12 +54,12 @@ export const getProductByUserId = async (userId: string) => {
   });
 };
 
-export const updateProduct = async (id: string, data: Partial<NewProduct>) => {
-  return (await db.update(products).set(data).where(eq(products.id, id)).returning())[0];
+export const updateProduct = async (id: string, userId: string, data: Partial<NewProduct>) => {
+  return (await db.update(products).set(data).where(and(eq(products.id, id), eq(products.userId, userId))).returning())[0];
 };
 
-export const deleteProduct = async (id: string) => {
-  return (await db.delete(products).where(eq(products.id, id)).returning())[0];
+export const deleteProduct = async (id: string, userId: string) => {
+  return (await db.delete(products).where(and(eq(products.id, id), eq(products.userId, userId))).returning())[0];
 };
 
 // ---- COMMENTS ----
@@ -67,8 +67,8 @@ export const createComment = async (data: NewComment) => {
   return (await db.insert(comments).values(data).returning())[0];
 };
 
-export const deleteComment = async (id: string) => {
-  return (await db.delete(comments).where(eq(comments.id, id)).returning())[0];
+export const deleteComment = async (id: string, userId: string) => {
+  return (await db.delete(comments).where(and(eq(comments.id, id), eq(comments.userId, userId))).returning())[0];
 };
 
 export const getCommentById = async (id: string) => {
