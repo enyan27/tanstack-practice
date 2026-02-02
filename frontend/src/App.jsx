@@ -1,10 +1,14 @@
 import { Route, Routes } from "react-router";
 import Navbar from "./components/Navbar";
+import { useAuthReq, useTheme, useUserSync } from "./hooks";
 import { CreateProductPage, EditProductPage, HomePage, ProductPage, ProfilePage } from "./pages";
-import useTheme from "./hooks/useTheme";
 
 const App = () => {
   const { theme } = useTheme();
+  const { isSignedIn, isLoaded } = useAuthReq();
+  useUserSync();
+
+  if (!isLoaded) return;
 
   return (
     <>
