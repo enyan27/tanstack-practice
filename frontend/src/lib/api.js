@@ -22,8 +22,8 @@ export const createProduct = async (data) => {
   return await axiosInstance.post("/products", data);
 };
 
-export const updateProduct = async ({ id, ...data }) => {
-  return await axiosInstance.post(`/products/${id}`, data);
+export const updateProduct = async (id, data) => {
+  return await axiosInstance.put(`/products/${id}`, data);
 };
 
 export const deleteProduct = async (id) => {
@@ -31,8 +31,8 @@ export const deleteProduct = async (id) => {
 };
 
 // COMMENTS API
-export const createComment = async ({ productId, data }) => {
-  return await axiosInstance.post(`/comments/${productId}`, { data });
+export const createComment = async (productId, data) => {
+  return await axiosInstance.post(`/comments/${productId}`, data);
 };
 
 export const deleteComment = async (id) => {
