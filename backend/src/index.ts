@@ -7,7 +7,7 @@ import { commentRoutes, productRoutes, userRoutes } from "./routes";
 
 const app = express();
 
-app.use(cors({ origin: ENV.FRONTEND_URL }));
+app.use(cors({ origin: ENV.FRONTEND_URL, credentials: true })); // allow cookies
 app.use(express.json()); // parse json req
 app.use(express.urlencoded({ extended: true })); // parse form data (html forms)
 app.use(clerkMiddleware()); // auth obj will be attached to the req
