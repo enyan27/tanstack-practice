@@ -55,11 +55,22 @@ export const getProductByUserId = async (userId: string) => {
 };
 
 export const updateProduct = async (id: string, userId: string, data: Partial<NewProduct>) => {
-  return (await db.update(products).set(data).where(and(eq(products.id, id), eq(products.userId, userId))).returning())[0];
+  return (
+    await db
+      .update(products)
+      .set(data)
+      .where(and(eq(products.id, id), eq(products.userId, userId)))
+      .returning()
+  )[0];
 };
 
 export const deleteProduct = async (id: string, userId: string) => {
-  return (await db.delete(products).where(and(eq(products.id, id), eq(products.userId, userId))).returning())[0];
+  return (
+    await db
+      .delete(products)
+      .where(and(eq(products.id, id), eq(products.userId, userId)))
+      .returning()
+  )[0];
 };
 
 // ---- COMMENTS ----
@@ -68,7 +79,12 @@ export const createComment = async (data: NewComment) => {
 };
 
 export const deleteComment = async (id: string, userId: string) => {
-  return (await db.delete(comments).where(and(eq(comments.id, id), eq(comments.userId, userId))).returning())[0];
+  return (
+    await db
+      .delete(comments)
+      .where(and(eq(comments.id, id), eq(comments.userId, userId)))
+      .returning()
+  )[0];
 };
 
 export const getCommentById = async (id: string) => {

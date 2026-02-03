@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { ShoppingBagIcon, PlusIcon, UserIcon } from "lucide-react";
+import { CirclePlus, ShoppingBagIcon, UserIcon } from "lucide-react";
 import { SignInButton, SignUpButton, UserButton, useAuth } from "@clerk/clerk-react";
 import ThemeSelector from "./ThemeSelector";
 
@@ -7,12 +7,12 @@ const Navbar = () => {
   const { isSignedIn } = useAuth();
 
   return (
-    <nav className="nav bg-base-300">
+    <nav className="nav bg-base-300 py-1">
       <div className="max-w-5xl mx-auto w-full px-4 flex justify-between items-center">
         {/* LEFT */}
         <div className="flex-1">
           <Link to="/" className="btn btn-ghost gap-2">
-            <ShoppingBagIcon />
+            <ShoppingBagIcon className="size-5 text-primary" />
             <span className="text-lg font-bold font-mono uppercase tracking-wider">TanStack</span>
           </Link>
         </div>
@@ -22,8 +22,8 @@ const Navbar = () => {
           {isSignedIn ? (
             <>
               <Link to="/create" className="btn btn-ghost">
-                <PlusIcon className="size-4" />
-                <span className="hidden sm:inline">New Product</span>
+                <CirclePlus className="size-4" />
+                <span className="hidden sm:inline">Create Product</span>
               </Link>
               <Link to="/profile" className="btn btn-ghost">
                 <UserIcon className="size-4" />
@@ -37,7 +37,7 @@ const Navbar = () => {
                 <button className="btn btn-ghost btn-sm">Sign In</button>
               </SignInButton>
               <SignUpButton mode="modal">
-                <button className="btn btn-primary btn-sm">Get Started</button>
+                <button className="btn btn-primary btn-sm">Sign Up</button>
               </SignUpButton>
             </>
           )}
