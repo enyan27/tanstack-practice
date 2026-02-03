@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { syncUser } from "../lib/api";
 
-// used to sync clerk user to user in database
+// sync clerk user with user in database
 const useUserSync = () => {
   const { isSignedIn } = useAuth();
   const { user } = useUser();

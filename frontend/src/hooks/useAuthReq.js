@@ -2,9 +2,9 @@ import { useAuth } from "@clerk/clerk-react";
 import { useEffect } from "react";
 import axiosInstance from "../lib/axios";
 
-// used to attach token to req headers
+// attach auth token to request if signed in
 const useAuthReq = () => {
-  const { isSignedIn, getToken, isLoaded } = useAuth();
+  const { isSignedIn, isLoaded, getToken } = useAuth();
 
   useEffect(() => {
     const interceptor = axiosInstance.interceptors.request.use(async (config) => {
@@ -15,7 +15,7 @@ const useAuthReq = () => {
       return config;
     });
     return () => axiosInstance.interceptors.request.eject(interceptor);
-  }, [isSignedIn, getToken, isLoaded]);
+  }, [isSignedIn, isLoaded, getToken]);
 
   return { isSignedIn, isLoaded };
 };
