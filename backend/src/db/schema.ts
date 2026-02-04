@@ -52,6 +52,11 @@ export const productRelations = relations(products, ({ one, many }) => ({
   comments: many(comments)
 }));
 
+export const commentRelations = relations(comments, ({ one }) => ({
+  user: one(users, { fields: [comments.userId], references: [users.id] }),
+  product: one(products, { fields: [comments.productId], references: [products.id] })
+}));
+
 // type inferences
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
