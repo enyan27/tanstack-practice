@@ -7,7 +7,7 @@ import { CreateProductPage, EditProductPage, HomePage, ProductPage, ProfilePage 
 
 const App = () => {
   const { theme } = useTheme();
-  useAuthReq();
+  const { isSignedIn } = useAuthReq();
   useUserSync();
 
   return (
@@ -18,9 +18,9 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/product/:id" element={<ProductPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/create" element={<CreateProductPage />} />
-            <Route path="/edit" element={<EditProductPage />} />
+            <Route path="/profile" element={isSignedIn ? <ProfilePage /> : <Navigate to="/" />} />
+            <Route path="/create" element={isSignedIn ? <CreateProductPage /> : <Navigate to="/" />} />
+            <Route path="/edit/:id" element={isSignedIn ? <EditProductPage /> : <Navigate to="/" />} />
           </Routes>
         </main>
       </div>

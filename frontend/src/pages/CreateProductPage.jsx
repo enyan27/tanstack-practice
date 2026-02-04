@@ -76,7 +76,7 @@ function CreatePage() {
 
             {createProduct.isError && (
               <div role="alert" className="alert alert-error alert-sm">
-                <span>Failed to create. Try again.</span>
+                <span>Error! Task failed successfully</span>
               </div>
             )}
 

@@ -13,7 +13,7 @@ function HomePage() {
     return (
       <div role="alert" className="alert alert-error">
         <CircleX className="size-4" />
-        <span>Error! Task failed successfully</span>
+        <span>{error.message}</span>
       </div>
     );
 
@@ -48,7 +48,7 @@ function HomePage() {
           All Products
         </h2>
 
-        {products.length === 0 ? (
+        {!products.length ? (
           <div className="card bg-base-300">
             <div className="card-body items-center text-center py-16">
               <PackageIcon className="size-16 text-base-content/20" />
