@@ -4,6 +4,6 @@ import * as userController from "../controllers/user.controller";
 
 const router = Router();
 
-router.post("/sync", userController.syncUser);
+router.post("/sync", requireAuth(), userController.syncUser);
 
 export default router;

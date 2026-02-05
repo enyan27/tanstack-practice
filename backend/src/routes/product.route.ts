@@ -7,11 +7,11 @@ const router = Router();
 router.get("/test", (_, res) => res.status(200).json({ message: "Product route is working!" }));
 
 router.get("/", productController.getAllProducts);
-router.get("/my", productController.getMyProducts);
+router.get("/my", requireAuth(), productController.getMyProducts);
 router.get("/:id", productController.getProductById);
 
-router.post("/", productController.createProduct);
-router.put("/:id", productController.updateProduct);
-router.delete("/:id", productController.deleteProduct);
+router.post("/", requireAuth(), productController.createProduct);
+router.put("/:id", requireAuth(), productController.updateProduct);
+router.delete("/:id", requireAuth(), productController.deleteProduct);
 
 export default router;
