@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import Navbar from "./components/Navbar";
 import useTheme from "./hooks/useTheme";
 import useAuthReq from "./hooks/useAuthReq";
