@@ -9,7 +9,7 @@ const EditProductPage = () => {
   const { userId } = useAuth();
   const navigate = useNavigate();
 
-  const { data: product, isLoading } = useProduct(id, userId);
+  const { data: product, isLoading } = useProduct(id);
   const updateProduct = useUpdateProduct();
 
   if (isLoading) return <LoadingSpinner />;
